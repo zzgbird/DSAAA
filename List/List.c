@@ -7,8 +7,8 @@ typedef int ElementType;  // 定义数据类型，可以根据需要进行其他
 typedef struct ListNode   // 链表节点的定义
 {
     ElementType Element;    // 数据域
-    struct ListNode* next;  // 指向下一个节点
-}Node, *PNode;
+    struct ListNode *next;  // 指向下一个节点
+} Node, *PNode;
 
 // 函数声明
 PNode CreateList(void);  // 声明创建链表函数
@@ -29,6 +29,7 @@ int main() {
     TraverseList(List);
     DeleteTheList(List);  // 删除整个链表
     TraverseList(List);
+    system("pause");    
     return 0;
 }
 
@@ -123,7 +124,7 @@ void InsertList(PNode List, int pos, int val){
     }
 
     PNode Tmp = (PNode)malloc(sizeof(Node));
-    if(Tmp = NULL)
+    if(Tmp == NULL)
     {
         printf("分配内存失败!");
         exit(-1);
