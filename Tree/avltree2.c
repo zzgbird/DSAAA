@@ -22,7 +22,6 @@ int height(tlink node)
     return node ? node->height:-1;
 }
 
-
 tlink single_left_rotate(tlink k1)  //RR rithgt right
 {
     tlink k2 = k1->right;
@@ -93,12 +92,10 @@ tlink insert_node(tlink tree, int vertex)
     }
 
     /* else vertex is already exists in tree, we'll do nothing */
-    
+
     tree->height = max(height(tree->left), height(tree->right)) + 1;
     return tree;    
 }
-
-
 
 void infix(tlink root)
 {
