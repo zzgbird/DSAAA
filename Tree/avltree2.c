@@ -29,7 +29,7 @@ tlink single_left_rotate(tlink k1)  //RR rithgt right
     k1->right = k2->left;
     k2->left = k1;
     k1->height = max(height(k1->left), height(k1->right)) + 1;
-    k2->height = max(height(k2->left), height(k1->right)) + 1;
+    k2->height = max(height(k2->left), height(k2->right)) + 1;
 
     return k2;
 }
@@ -39,8 +39,8 @@ tlink single_right_rotate(tlink k2)  //LL left left
     tlink k1 = k2->left;
     k2->left = k1->right;
     k1->right = k2;
-    k1->height = max(height(k1->left), height(k1->right)) + 1;
     k2->height = max(height(k2->left), height(k2->right)) + 1;
+    k1->height = max(height(k1->left), height(k1->right)) + 1;
 
     return k1;
 }
@@ -61,9 +61,11 @@ tlink insert_node(tlink tree, int vertex)
 {
     if (tree == NULL)
     {
-        tlink new = malloc(sizeof(struct AvlNode));
-        new->left = new->right = NULL;
-        return new;
+        tree = malloc(sizeof(struct AvlNode));
+        if (tree == NULL)
+            printf("out of space!\n"), exit(1);
+        tree->vertex = vertex;
+        tree->left = tree->right = NULL;
     }
 
     else if (vertex < tree->vertex)
@@ -84,21 +86,23 @@ tlink insert_node(tlink tree, int vertex)
         if (height(tree->right) - height(tree->left) > 1)
         {
             if (vertex > tree->right->vertex)  // r-r
-                single_left_rotate(tree->right);
+                tree = single_left_rotate(tree);
             else // r-l
-                double_rotate_left(tree->right);
+                tree = double_rotate_left(tree);
         }
     }
 
-    else /* vertex is already exists in tree, we'll do nothing */
-        return tree;
+    /* else vertex is already exists in tree, we'll do nothing */
+    
     tree->height = max(height(tree->left), height(tree->right)) + 1;
     return tree;    
 }
 
+
+
 void infix(tlink root)
 {
-    if (root != NULL)
+    if (root)
     {
         infix(root->left);
         printf("%d(%d) ", root->vertex, root->height);
@@ -108,7 +112,7 @@ void infix(tlink root)
 
 int main(int argc, char const *argv[])
 {
-    int data[N] = {3, 2, 1, 4, 5, 6, 7, 16, 15, 14, 13, 12, 11, 10, 8, 9};
+    int data[N]={3,2,1,4,5,6,7,16,15,14,13,12,11,10,8,9};
     tlink tree = NULL;
     int i;
     for (i=0; i<N; i++)
