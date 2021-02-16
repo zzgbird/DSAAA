@@ -1,5 +1,5 @@
 #ifndef BinaryTree_H
-#define BinertTree_H
+#define BinaryTree_H
 #define STACKSIZE 300
 
 struct BTree
