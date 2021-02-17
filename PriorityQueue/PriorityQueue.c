@@ -89,12 +89,12 @@ struct Task *delete_min(heaptype heap){
         return NULL;
     struct Task *top = heap->data[0];
     swap_heap(heap, 0, heap->size-1);
-    heap->size = 1;
+    heap->size -= 1;
     hold_heap(heap, 0);
     return top;
 }
 
-void destory_heap(heaptype heap){
+void destroy_heap(heaptype heap){
     free(heap->data);
     free(heap);
 }
