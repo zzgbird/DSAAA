@@ -65,14 +65,14 @@ void insert_heap(heaptype heap, struct Task *newtask){
 
 void decrease_priority(heaptype heap, int taskid, int priority){
     int where = gettaskbyid(heap, taskid);
-    if (where == -1 || where > heap->size || heap->data[where]->priority <= priority)
+    if (where == -1 || where >= heap->size || heap->data[where]->priority <= priority)
         return;
     heap->data[where]->priority = priority;
     hold_heap(heap, where);
 }
 
 void increase_priority(heaptype heap, int taskid, int priority){
-    int where = gettaskbyid(taskid);
+    int where = gettaskbyid(heap,taskid);
     if(where == -1 || where >= heap->size || heap->data[where]->priority >= priority)
         return;
     int currentpos = where, parentpos;
